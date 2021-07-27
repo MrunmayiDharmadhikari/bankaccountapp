@@ -15,13 +15,13 @@ public abstract class Account implements InterestBaseRate {
         this.name = name;
         this.ssn = ssn;
         balance = initDeposit + 100;
-        System.out.println(" NAME" + name);
-        System.out.println("SSN " + ssn);
-        System.out.println("BALANCE" + balance);
+
         index++;
         this.accountNumber = setAccountNumber();
+        setRate();
     }
 
+    public abstract void setRate();
 
 
     private String setAccountNumber() {
@@ -31,8 +31,30 @@ public abstract class Account implements InterestBaseRate {
         return lastTwoDigSSN + uniqueID + randomNum ;
     }
 
+    public void deposit(double amount) {
+        balance = balance + amount;
+        System.out.println("Depositing $" + amount);
+        printBalance();
+    }
+
+    public void withdraw(double amount) {
+        balance = balance - amount;
+        System.out.println("Withdrawing : $" + amount);
+        printBalance();
+    }
+
+    public void transfer(String destination, double amount) {
+        balance = balance - amount;
+        System.out.println("Transferring : $" + amount + " to " + destination);
+        printBalance();
+    }
+    public  void printBalance() {
+        System.out.println("Balance :  $" + balance);
+    }
     public void display() {
-        System.out.println("Name : " + name  + "Account Number ");
+        System.out.println("Name : " + name  + "\nAccount Number " + accountNumber
+                + "\nBank Balance : " + balance
+                + "\nRATE : " + rate + "%");
     }
     //constructor to set base properties and initialize the account
 
